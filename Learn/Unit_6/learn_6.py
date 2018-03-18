@@ -24,40 +24,88 @@
 
 #========直方图========================================================
 # 频率分布 频率密度分布 概率分布 概率密度分布
+# hist() 柱形图 
+#----------------------------------------------------------------
+# import numpy as np
+# import matplotlib.pyplot as plt
+
+# plt.style.use('ggplot')
+# mu1,mu2,sigma = 100,130,15
+# x1 = mu1+sigma*np.random.randn(10000)
+# x2 = mu2+sigma*np.random.randn(10000)
+# fig = plt.figure()
+# ax1 = fig.add_subplot(1,1,1)
+# n,bins,patches = ax1.hist(x1,bins=50,normed=False,color='g') # bins=50 每个变量的值被分成50份 normed=False 表示数概率分布图不是概率密度
+# n,bins,patches = ax1.hist(x2,bins=50,normed=False,color='orange',alpha=0.5) # alpha=0.5 透明度
+# plt.xlabel('Bins')
+# plt.ylabel('Number of Value in Bin')
+# fig.suptitle('Histograms',fontsize=14,fontweight='bold') # suptitle() fig总图标题
+# ax1.set_title('Two Frequency Distributions') # set_title() 子图标题
+# plt.savefig('histograms.png',dpi=400,bbox_inches='tight')
+# plt.show()
+#----------------------------------------------------------------
+
+
+#========折线图========================================================
+# 
+#----------------------------------------------------------------
+# from numpy.random import randn
+# import matplotlib.pyplot as plt
+
+# plt.style.use('ggplot')
+# plot_data1 = randn(50).cumsum() # cumsum() 累加求和
+# plot_data2 = randn(50).cumsum()
+# plot_data3 = randn(50).cumsum()
+# plot_data4 = randn(50).cumsum()
+# fig = plt.figure()
+# ax1 = fig.add_subplot(1,1,1)
+# ax1.plot(plot_data1,marker='o',color='b',linestyle='-',label='Blue Solid')
+# ax1.plot(plot_data2,marker='+',color='r',linestyle='--',label='Red Dashed')
+# ax1.plot(plot_data3,marker='*',color='g',linestyle='-.',label='Green Dash Dot')
+# ax1.plot(plot_data4,marker='s',color='y',linestyle=':',label='Yellow Dotted')
+# ax1.set_title('Line Plots: Markers, Colors, Linestyles')
+# plt.xlabel('Draw')
+# plt.ylabel('Random Number')
+# plt.legend(loc='best') # legend() 为统计图创建图例
+# plt.savefig('line_plot.png',dpi=400,bbox_inches='tight')
+# plt.show()
+#----------------------------------------------------------------
+
+
+#=======散点图=========================================================
+# 可以画一条回归曲线 使方差最小的曲线 np.polyfit() :拟合  np.poly1d() 使用这些参数创建实际的多项式方程
 #----------------------------------------------------------------
 import numpy as np
 import matplotlib.pyplot as plt
 
 plt.style.use('ggplot')
-mu1,mu2,sigma = 100,130,15
-x1 = mu1+sigma*np.random.randn(10000)
-x2 = mu2+sigma*np.random.randn(10000)
+x = np.arange(1,15)
+y_linear = x+5.*np.random.randn(14)
+y_quadratic = x**2 + 10.*np.random.randn(14)
+fn_linear = np.poly1d(np.polyfit(x,y_linear,deg=1))
+fn_quadratic = np.poly1d(np.polyfit(x,y_quadratic,deg=2))
+fig = plt.figure()
+ax1 = fig.add_subplot(1,1,1)
+ax1.plot(x,y_linear,'bo',x,y_quadratic,'go',x,fn_linear(x),'b-',x,fn_quadratic(x),'g-',linewidth=2) # 'bo'蓝色原点 'go'绿色原点
+ax1.set_title('Scatter Plots Regression Lines')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.xlim(min(x)-1,max(x)+1) # xlim 设置x轴的范围
+plt.ylim(min(y_quadratic)-10,max(y_quadratic)+10)
+plt.savefig('scatter_plot.png',dpi=400,bbox_inches='tight')
+plt.show()
 #----------------------------------------------------------------
 
 
-#================================================================
+#======箱线图==========================================================
 # 
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
 
 
-#================================================================
-# 
-#----------------------------------------------------------------
-
-#----------------------------------------------------------------
-
-
-#================================================================
-# 
-#----------------------------------------------------------------
-
-#----------------------------------------------------------------
-
-
-#================================================================
-# 
+#=======pandas作图=========================================================
+# 条形图 箱线图
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
