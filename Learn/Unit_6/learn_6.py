@@ -107,35 +107,50 @@
 #=======pandas作图=========================================================
 # 条形图 箱线图
 #----------------------------------------------------------------
-import pandas as pd 
-import numpy as np
-import matplotlib.pyplot as plt
+# import pandas as pd 
+# import numpy as np
+# import matplotlib.pyplot as plt
 
-plt.style.use('ggplot')
-fig, axes = plt.subplots(nrows=1, ncols=2) #  创建一个基础图和两个并排放置的子图
-ax1, ax2 = axes.ravel() # 使用ravel()函数将两个子图分别赋值给ax1 ax2 就不用行列索引了 axes[0,0] axes[0,1]
-data_frame = pd.DataFrame(
-		np.random.rand(5,3),
-		index = ['Customer 1','Customer 2','Customer 3','Customer 4','Customer 5'],
-		columns = pd.Index(['Metric 1','Metric 2','Metric 3'], name='Metrics'))
-data_frame.plot(kind='bar', ax=ax1, alpha=0.75, title='Bar Plot') # 条形图
-plt.setp(ax1.get_xticklabels(), rotation=45, fontsize=10)
-plt.setp(ax1.get_yticklabels(), rotation=0, fontsize=10)
-ax1.set_xlabel('Customer')
-ax1.set_ylabel('')
-
+# plt.style.use('ggplot')
+# fig, axes = plt.subplots(nrows=1, ncols=2) #  创建一个基础图和两个并排放置的子图
+# ax1, ax2 = axes.ravel() # 使用ravel()函数将两个子图分别赋值给ax1 ax2 就不用行列索引了 axes[0,0] axes[0,1]
+# data_frame = pd.DataFrame(
+# 		np.random.rand(5,3),
+# 		index = ['Customer 1','Customer 2','Customer 3','Customer 4','Customer 5'],
+# 		columns = pd.Index(['Metric 1','Metric 2','Metric 3'], name='Metrics'))
+# data_frame.plot(kind='bar', ax=ax1, alpha=0.75, title='Bar Plot') # 条形图
+# plt.setp(ax1.get_xticklabels(), rotation=45, fontsize=10)
+# plt.setp(ax1.get_yticklabels(), rotation=0, fontsize=10)
+# ax1.set_xlabel('Customer')
+# ax1.set_ylabel('Value')
+# ax1.xaxis.set_ticks_position('bottom')
+# ax1.yaxis.set_ticks_position('left')
+# colors = dict(boxes='DarkBlue', whiskers='Gray', medians='Red', caps='Black') # 为箱线图单独创建一个颜色字典
+# data_frame.plot(kind='box', color=colors, sym='r.', ax=ax2, title='Box Plot') # 箱线图 r.红色圆点
+# plt.setp(ax2.get_xticklabels(), rotation=45, fontsize=10)
+# plt.setp(ax2.get_yticklabels(), rotation=0, fontsize=10)
+# ax2.set_xlabel('Metric')
+# ax2.set_ylabel('Value')
+# ax2.xaxis.set_ticks_position('bottom')
+# ax2.yaxis.set_ticks_position('left')
+# plt.savefig('pandas_plots.png',dpi=400,bbox_inches='tight')
+# plt.show()
 
 #----------------------------------------------------------------
 
 
-#================================================================
-# 
+#========ggplot========================================================
+# 基于R的ggplot2包和图形语法 存在明显缺点
+# 区别：语法将数据与实际绘图明确地分离开
+# 几种基本元素：几何对象、图形属性、标度
+# 附加元素：统计变换、坐标系、子窗口、可视化主题
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
 
 
-#================================================================
+#========seaborn========================================================
+# 在matplotlib基础上开发 支持numpy pandas的数据结构 集成了scipy和statsmodels中的统计程序
 # 
 #----------------------------------------------------------------
 
