@@ -75,25 +75,25 @@
 #=======散点图=========================================================
 # 可以画一条回归曲线 使方差最小的曲线 np.polyfit() :拟合  np.poly1d() 使用这些参数创建实际的多项式方程
 #----------------------------------------------------------------
-import numpy as np
-import matplotlib.pyplot as plt
+# import numpy as np
+# import matplotlib.pyplot as plt
 
-plt.style.use('ggplot')
-x = np.arange(1,15)
-y_linear = x+5.*np.random.randn(14)
-y_quadratic = x**2 + 10.*np.random.randn(14)
-fn_linear = np.poly1d(np.polyfit(x,y_linear,deg=1))
-fn_quadratic = np.poly1d(np.polyfit(x,y_quadratic,deg=2))
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
-ax1.plot(x,y_linear,'bo',x,y_quadratic,'go',x,fn_linear(x),'b-',x,fn_quadratic(x),'g-',linewidth=2) # 'bo'蓝色原点 'go'绿色原点
-ax1.set_title('Scatter Plots Regression Lines')
-plt.xlabel('x')
-plt.ylabel('f(x)')
-plt.xlim(min(x)-1,max(x)+1) # xlim 设置x轴的范围
-plt.ylim(min(y_quadratic)-10,max(y_quadratic)+10)
-plt.savefig('scatter_plot.png',dpi=400,bbox_inches='tight')
-plt.show()
+# plt.style.use('ggplot')
+# x = np.arange(1,15)
+# y_linear = x+5.*np.random.randn(14)
+# y_quadratic = x**2 + 10.*np.random.randn(14)
+# fn_linear = np.poly1d(np.polyfit(x,y_linear,deg=1))
+# fn_quadratic = np.poly1d(np.polyfit(x,y_quadratic,deg=2))
+# fig = plt.figure()
+# ax1 = fig.add_subplot(1,1,1)
+# ax1.plot(x,y_linear,'bo',x,y_quadratic,'go',x,fn_linear(x),'b-',x,fn_quadratic(x),'g-',linewidth=2) # 'bo'蓝色原点 'go'绿色原点
+# ax1.set_title('Scatter Plots Regression Lines')
+# plt.xlabel('x')
+# plt.ylabel('f(x)')
+# plt.xlim(min(x)-1,max(x)+1) # xlim 设置x轴的范围
+# plt.ylim(min(y_quadratic)-10,max(y_quadratic)+10)
+# plt.savefig('scatter_plot.png',dpi=400,bbox_inches='tight')
+# plt.show()
 #----------------------------------------------------------------
 
 
@@ -108,7 +108,23 @@ plt.show()
 # 条形图 箱线图
 #----------------------------------------------------------------
 import pandas as pd 
-import
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.style.use('ggplot')
+fig, axes = plt.subplots(nrows=1, ncols=2) #  创建一个基础图和两个并排放置的子图
+ax1, ax2 = axes.ravel() # 使用ravel()函数将两个子图分别赋值给ax1 ax2 就不用行列索引了 axes[0,0] axes[0,1]
+data_frame = pd.DataFrame(
+		np.random.rand(5,3),
+		index = ['Customer 1','Customer 2','Customer 3','Customer 4','Customer 5'],
+		columns = pd.Index(['Metric 1','Metric 2','Metric 3'], name='Metrics'))
+data_frame.plot(kind='bar', ax=ax1, alpha=0.75, title='Bar Plot') # 条形图
+plt.setp(ax1.get_xticklabels(), rotation=45, fontsize=10)
+plt.setp(ax1.get_yticklabels(), rotation=0, fontsize=10)
+ax1.set_xlabel('Customer')
+ax1.set_ylabel('')
+
+
 #----------------------------------------------------------------
 
 
