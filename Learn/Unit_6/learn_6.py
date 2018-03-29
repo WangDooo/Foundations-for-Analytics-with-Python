@@ -145,7 +145,28 @@
 # 几种基本元素：几何对象、图形属性、标度
 # 附加元素：统计变换、坐标系、子窗口、可视化主题
 #----------------------------------------------------------------
+import seaborn as sns 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pylab import savefig
 
+sns.set(color_codes=True)
+# 直方图 distplot()
+x = np.random.normal(size=100) # normal() 正态分布
+sns.distplot(x, bins=20, kde=False, rug=True, label='Histogram w/o Density')
+sns.utils.axlabel('Value', 'Frequency')
+plt.title('Histogram of a Random Sample from a Normal Distribution')
+plt.legend()
+# 带有回归直线的散点图与单变量直方图 jointplot()
+mean, cov = [5, 10],[(1, .5),(.5, 1)]
+data = np.random.multivariate_normal(mean, cov, 200)
+data_frame = pd.DataFrame(data, columns=['x', 'y'])
+sns.jointplot(x='x', y='y', data=data_frame, kind='reg').set_axis_labels('x','y')
+plt.suptitle('Joint Plot of Two Variables with Bivariate and Univariate Graphs')
+# 成对变量之间的散点图与单变量直方图 pairplot()
+
+plt.show()
 #----------------------------------------------------------------
 
 
