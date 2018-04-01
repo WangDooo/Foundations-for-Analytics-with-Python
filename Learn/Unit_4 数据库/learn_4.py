@@ -9,14 +9,78 @@
 #=======内置的sqlite3模块=========================================================
 # 
 #----------------------------------------------------------------
+# import sqlite3
 
+# # 创建SQLite3内存数据库
+# # 创建带有4个属性的sales表
+# # con = sqlite3.connect(':memory:') # connect(':memory:')在内存中
+# con = sqlite3.connect('My_database.db')
+# # 3个双引号 多行字符串 SQL命令
+# query = """CREATE TABLE sales( 
+# 		customer VARCHAR(20),
+# 		product VARCHAR(40),
+# 		amount FLOAT,
+# 		date DATE);"""
+# con.execute(query) # 执行字符串的SQL命令
+# con.commit() # commmit() 提交修改到数据库
+
+# # 在表中插入几行数据
+# data = [('Wang Doo','Apple',4.78,'2012-01-23'),	# 元祖列表
+# 	('Wang qweq','Banana',422.8,'2012-11-23'),
+# 	('Wasdaasf','Pech',0.28,'2018-09-23'),
+# 	('asdSDASF','GOGOGOOGO',4113.00,'2019-01-23')]
+# statemet = "INSERT INTO sales VALUES(?,?,?,?)" # INSERT 将data数据行插入sales表中 ?用作占位符
+# con.executemany(statemet, data) # executemany()执行4次INSERT
+# con.commit()
+
+# # 查询sales表
+# cursor = con.execute("SELECT * FROM sales") # 光标对象cursor 常用方法 execute executemany fetchone fetchmany fetchall
+# rows = cursor.fetchall() # fetchall()方法取出结果的所有行
+
+# # 计算查询结果中行的数量
+# row_counter = 0
+# for row in rows: # 每行都是一个元组
+# 	print(row)
+# 	row_counter += 1
+# print('Number of rows:%d' % row_counter)
 #----------------------------------------------------------------
 
 
-#================================================================
-# 
+#========向表中插入新纪录========================================================
+# 向表中插入CSV文件中数据
 #----------------------------------------------------------------
+import csv
+import sqlite3
+import sys
 
+# CSV文件的路径和名称
+input_file = 'supplier_data.csv'
+
+con = sqlite3.connect('Suppliers.db')
+c = con.cursor()
+create_table = """CREATE TABLE IF NOT EXISTS Suppliers(
+					Supplier_Name VARCHER(20),
+					Invoice_Number VARCHER(20),
+					Part_Number VARCHER(20),
+					Cost FLOAT,
+					Purchase_Date DATE);"""
+c.execute(create_table)
+con.commit()
+
+# 读取CSV文件 写入
+file_reader = csv.reader(open(input_file,'r'),delimiter=',')
+header = next(file_reader, None)
+for row in file_reader:
+	data = []
+	for column_index in range(len(header)):
+		data.append(row[column_index])
+	print(data)
+	c.execute("INSERT INTO Supplier VALUES (?,?,?,?,?);", data)
+con.commit()
+
+# 查询Suppliers表
+output = c.execute("SELECT * FROM Suppliers")
+rows = output.fetchall()
 #----------------------------------------------------------------
 
 
