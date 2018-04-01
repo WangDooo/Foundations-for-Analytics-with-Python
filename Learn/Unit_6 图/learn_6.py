@@ -165,7 +165,14 @@ data_frame = pd.DataFrame(data, columns=['x', 'y'])
 sns.jointplot(x='x', y='y', data=data_frame, kind='reg').set_axis_labels('x','y')
 plt.suptitle('Joint Plot of Two Variables with Bivariate and Univariate Graphs')
 # 成对变量之间的散点图与单变量直方图 pairplot()
-
+iris = sns.load_dataset('tips')
+sns.pairplot(iris)
+# 按照某几个变量生成的箱线图 factotplot()
+tips = sns.load_dataset('tips')
+sns.factorplot(x='time',y='total_bill',hue='smoker',col='day',data=tips,kind='box',size=4,aspect=.5)
+# 带有bootstrap置信区间的线性回归模型
+sns.lmplot(x='total_bill',y='tip',data=tips)
+# 带有bootstrap置信区间的逻辑斯蒂回归模型
 plt.show()
 #----------------------------------------------------------------
 
