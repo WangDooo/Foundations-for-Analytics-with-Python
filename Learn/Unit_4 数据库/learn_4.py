@@ -29,8 +29,8 @@
 # 	('Wang qweq','Banana',422.8,'2012-11-23'),
 # 	('Wasdaasf','Pech',0.28,'2018-09-23'),
 # 	('asdSDASF','GOGOGOOGO',4113.00,'2019-01-23')]
-# statemet = "INSERT INTO sales VALUES(?,?,?,?)" # INSERT 将data数据行插入sales表中 ?用作占位符
-# con.executemany(statemet, data) # executemany()执行4次INSERT
+# statement = "INSERT INTO sales VALUES(?,?,?,?)" # INSERT 将data数据行插入sales表中 ?用作占位符
+# con.executemany(statement, data) # executemany()执行4次INSERT
 # con.commit()
 
 # # 查询sales表
@@ -49,49 +49,95 @@
 #========向表中插入新纪录========================================================
 # 向表中插入CSV文件中数据
 #----------------------------------------------------------------
-import csv
-import sqlite3
-import sys
+# import csv
+# import sqlite3
 
-# CSV文件的路径和名称
-input_file = 'supplier_data.csv'
+# # CSV文件的路径和名称
+# input_file = 'supplier_data.csv'
 
-con = sqlite3.connect('Suppliers.db')
-c = con.cursor()
-create_table = """CREATE TABLE IF NOT EXISTS Suppliers(
-					Supplier_Name VARCHER(20),
-					Invoice_Number VARCHER(20),
-					Part_Number VARCHER(20),
-					Cost FLOAT,
-					Purchase_Date DATE);"""
-c.execute(create_table)
-con.commit()
+# con = sqlite3.connect('Suppliers.db')
+# c = con.cursor() # 创建一个光标
+# create_table = """CREATE TABLE IF NOT EXISTS Suppliers(
+# 					Supplier_Name VARCHER(20),
+# 					Invoice_Number VARCHER(20),
+# 					Part_Number VARCHER(20),
+# 					Cost FLOAT,
+# 					Purchase_Date DATE);"""
+# c.execute(create_table)
+# con.commit()
 
-# 读取CSV文件 写入
-file_reader = csv.reader(open(input_file,'r'),delimiter=',')
-header = next(file_reader, None)
-for row in file_reader:
-	data = []
-	for column_index in range(len(header)):
-		data.append(row[column_index])
-	print(data)
-	c.execute("INSERT INTO Supplier VALUES (?,?,?,?,?);", data)
-con.commit()
+# # 读取CSV文件 写入
+# file_reader = csv.reader(open(input_file,'r'),delimiter=',')
+# header = next(file_reader, None)
+# for row in file_reader:
+# 	data = []
+# 	for column_index in range(len(header)):
+# 		data.append(row[column_index])
+# 	print(data)
+# 	c.execute("INSERT INTO Suppliers VALUES (?,?,?,?,?);", data)
+# con.commit()
 
-# 查询Suppliers表
-output = c.execute("SELECT * FROM Suppliers")
-rows = output.fetchall()
+# # 查询Suppliers表
+# output = c.execute("SELECT * FROM Suppliers")
+# rows = output.fetchall()
+# for row in rows:
+# 	output = []
+# 	for column_index in range(len(row)):
+# 		output.append(str(row[column_index]))
+# 	print(output)
 #----------------------------------------------------------------
 
 
-#================================================================
+#========更新表中记录========================================================
 # 
 #----------------------------------------------------------------
+# import csv
+# import sqlite3
 
+# input_file = 'data_for_updating.csv'
+
+# con = sqlite3.connect(':memory:')
+# query = """CREATE TABLE IF NOT EXISTS sales
+# 		(customer VARCHER(20),
+# 		product VARCHER(40),
+# 		amount FLOAT,
+# 		date DATE);"""
+# con.execute(query)
+# con.commit()
+# data = [('Wang Doo','Apple',4.78,'2012-01-23'),	# 元祖列表
+# 	('Wang qweq','Banana',422.8,'2012-11-23'),
+# 	('Wasdaasf','Pech',0.28,'2018-09-23'),
+# 	('asdSDASF','GOGOGOOGO',4113.00,'2019-01-23')]
+
+# for tuple in data:
+# 	print(tuple)
+
+# statement = 'INSERT INTO sales VALUES(?,?,?,?)'
+# con.executemany(statement,data)
+# con.commit()
+
+# # 读取CSV文件并更新特定的行
+# file_reader = csv.reader(open(input_file,'r'),delimiter=',')
+# header = next(file_reader, None)
+# for row in file_reader:
+# 	data = []
+# 	for column_index in range(len(header)):
+# 		data.append(row[column_index])
+# 	print(data)
+# 	con.execute("UPDATE sales SET amount=?, date=? WHERE customer=?;",data)
+# con.commit()
+# # 查询sales表
+# cursor = con.execute("SELECT * FROM sales")
+# rows = cursor.fetchall()
+# for row in rows:
+# 	output = []
+# 	for column_index in range(len(row)):
+# 		output.append(str(row[column_index]))
+# 	print(output)
 #----------------------------------------------------------------
 
 
-#================================================================
+#========MySQL数据库========================================================
 # 
 #----------------------------------------------------------------
 
