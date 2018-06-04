@@ -58,28 +58,35 @@ wine.columns = wine.columns.str.replace(' ','_')
 #=========成对变量之间的关系和相关性=======================================================
 # 研究一下输入变量，计算输入变量两两之间的相关性，为输入变量创建带有回归直线的散点图
 #----------------------------------------------------------------
-# 计算所有变量的相关矩阵
-print(wine.corr()) # corr()计算数据集中所有变量两两之间的线性相关性	
-# 从数据中取出一个“小”样本进行绘图
-def take_sample(data_frame, replace=False, n=200):
-	return data_frame.loc[np.random.choice(data_frame.index, replace=replace, size=n)]
+# # 计算所有变量的相关矩阵
+# print(wine.corr()) # corr()计算数据集中所有变量两两之间的线性相关性	
+# # 从数据中取出一个“小”样本进行绘图
+# def take_sample(data_frame, replace=False, n=200):
+# 	return data_frame.loc[np.random.choice(data_frame.index, replace=replace, size=n)]
 
-reds_sample = take_sample(wine.loc[wine['type']=='red',:])
-whites_sample = take_sample(wine.loc[wine['type']=='white',:])
-wine_sample = pd.concat([reds_sample, whites_sample])
-# wine数据中创建一个新列in_sample 用isin()进行填充 在抽样中为1
-wine['in_sample'] = np.where(wine.index.isin(wine_sample.index), 1., 0.)
-print(pd.crosstab(wine.in_sample, wine.type, margins=True)) # crosstab 确定sample数目
-# 查看成对变量之间的关系
-sns.set_style('dark')
-g = sns.pairplot(wine_sample, kind='reg', plot_kws={'ci':False, 'x_jitter':0.25, 'y_jitter':0.25}, hue='type', diag_kind)
+# reds_sample = take_sample(wine.loc[wine['type']=='red',:])
+# whites_sample = take_sample(wine.loc[wine['type']=='white',:])
+# wine_sample = pd.concat([reds_sample, whites_sample])
+# # wine数据中创建一个新列in_sample 用isin()进行填充 在抽样中为1
+# wine['in_sample'] = np.where(wine.index.isin(wine_sample.index), 1., 0.)
+# print(pd.crosstab(wine.in_sample, wine.type, margins=True)) # crosstab 确定sample数目
+# # 查看成对变量之间的关系
+# sns.set_style('dark')
+# g = sns.pairplot(wine_sample, kind='reg', plot_kws={'ci':False, 'x_jitter':0.25, 'y_jitter':0.25}, hue='type', diag_kind='hist', diag_kws={"bins":10, "alpha":1.0}, palette=dict(red="red", white="white"), markers=["o", "s"], vars=['quality', 'alcohol', 'residual_sugar'])
+# print(g)
+# plt.suptitle('Hist and Scatter', fontsize=15, horizontalalignment='center', verticalalignment='top', x=0.5, y=0.999)
+# plt.show()
 #---------------------------------------------------------------- 
 
 
-#================================================================
-# 
+#========使用最小二乘估计进行线性回归========================================================
+# 测量出每个自变量在其他自变量不变时与因变量之间的关系
+# y[i] ~ N(u[i],sigma^2)
+# u[i] = b[0]+b[1]*x[i1]+b[2]*x[i2]+...+b[p]*x[ip]
+# 使用statsmodel包进行线性回归
 #----------------------------------------------------------------
-
+# 波浪线~ 左侧 quality是因变量，右侧是自变量
+my_formula = 'quality ~ alcohol + chlorides + citric_acid + density + fixed_acidity + free_sulfur_dioxide + pH + residual_sugar + sulphates + total_sulfur_dioxide + volatile_acidity'
 #----------------------------------------------------------------
 
 
