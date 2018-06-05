@@ -87,6 +87,9 @@ wine.columns = wine.columns.str.replace(' ','_')
 #----------------------------------------------------------------
 # 波浪线~ 左侧 quality是因变量，右侧是自变量
 my_formula = 'quality ~ alcohol + chlorides + citric_acid + density + fixed_acidity + free_sulfur_dioxide + pH + residual_sugar + sulphates + total_sulfur_dioxide + volatile_acidity'
+# 拟合一个普通最小二乘回归模型
+lm = ols(my_formula, data=wine).fit()
+print(lm.summary()) # 摘要信息
 #----------------------------------------------------------------
 
 
